@@ -21,4 +21,4 @@ if ( ! function_exists( 'batdongsan' ) ) {
 	}
 }
 
-$GLOBALS['batdongsan'] = batdongsan();
+add_action( 'plugins_loaded', 'batdongsan' );
