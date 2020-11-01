@@ -64,4 +64,4 @@ class Datdongsan_Legal_Status {
     }
 }
 
-// new Datdongsan_Legal_Status();
+new Datdongsan_Legal_Status();
