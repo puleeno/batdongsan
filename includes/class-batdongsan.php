@@ -11,5 +11,14 @@ class Batdongsan {
 	}
 
 	private function __construct() {
+		// This plugin working with WordLand plugin
+		if (!class_exists(WordLand::class)) {
+			return;
+		}
+		$this->includes();
+	}
+
+	public function includes() {
+		require_once dirname(__FILE__) . '/class-batdongsan-legal-status.php';
 	}
 }
