@@ -6,6 +6,12 @@ class Datdongsan_Legal_Status {
 
     public function __construct() {
         add_action('init', array($this, 'registerTaxonomies'));
+        add_filter(
+            'wordland_property_supported_json_fields',
+            array($this, 'appendLegalJsonToProperty'),
+            10,
+            2
+        );
     }
 
     public function registerTaxonomies() {
@@ -19,6 +25,13 @@ class Datdongsan_Legal_Status {
             'batdongsan_legal_args',
             $args
         ));
+    }
+
+    public function appendLegalToProperty($data, $property) {
+        if (isset($property->legal_status)) {
+            $data['legal_status'] = $property->legal_status;
+        }
+        return $data;
     }
 }
 
