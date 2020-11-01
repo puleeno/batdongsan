@@ -12,6 +12,7 @@ class Datdongsan_Legal_Status {
             10,
             2
         );
+        add_filter('wordland_builder_get_property', array($this, 'parseLegalData'), 10, 2);
     }
 
     public function registerTaxonomies() {
@@ -27,11 +28,32 @@ class Datdongsan_Legal_Status {
         ));
     }
 
-    public function appendLegalToProperty($data, $property) {
+    public function appendLegalJsonToProperty($data, $property) {
         if (isset($property->legal_status)) {
             $data['legal_status'] = $property->legal_status;
         }
         return $data;
+    }
+
+    public function parseLegalData($property, $builder) {
+        if (!$property->ID) {
+            return $property;
+        }
+
+        $legals = wp_get_post_terms($property->ID, static::LEGAL_NAME);
+        foreach($legals as $index => $legal) {
+            $parsedLegal = array(
+                'display' => $legal->name,
+                'url' => get_term_link($legal, static::LEGAL_NAME ),
+                'show_url' => false,
+            );
+            $property->legal_status[$index] = apply_filters(
+                'batdongsan_parsed_legal',
+                $parsedLegal,
+                $legal
+            );
+        }
+        return $property;
     }
 }
 
