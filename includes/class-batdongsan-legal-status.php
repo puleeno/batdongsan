@@ -2,6 +2,8 @@
 use WordLand\PostTypes;
 
 class Datdongsan_Legal_Status {
+    const LEGAL_NAME = 'property_status';
+
     public function __construct() {
         add_action('init', array($this, 'registerTaxonomies'));
     }
@@ -13,7 +15,7 @@ class Datdongsan_Legal_Status {
         $args = array(
             'labels' => $labels,
         );
-        register_taxonomy('property_status', PostTypes::get(), apply_filters(
+        register_taxonomy(static::LEGAL_NAME, PostTypes::get(), apply_filters(
             'batdongsan_legal_args',
             $args
         ));
