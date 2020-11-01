@@ -29,9 +29,13 @@ class Datdongsan_Legal_Status {
     }
 
     public function appendLegalJsonToProperty($data, $property) {
-        if (isset($property->legal_status)) {
-            $data['legal_status'] = $property->legal_status;
+        if (isset($property->legals)) {
+            $data['legals'] = $property->legals;
         }
+        if (isset($property->legal)) {
+            $data['legal'] = $property->legal;
+        }
+
         return $data;
     }
 
@@ -47,14 +51,17 @@ class Datdongsan_Legal_Status {
                 'url' => get_term_link($legal, static::LEGAL_NAME ),
                 'show_url' => false,
             );
-            $property->legal_status[$index] = apply_filters(
+            $property->legals[$index] = apply_filters(
                 'batdongsan_parsed_legal',
                 $parsedLegal,
                 $legal
             );
         }
+        if (isset($property->legals)) {
+            $property->legal = $property->legals[0];
+        }
         return $property;
     }
 }
 
-new Datdongsan_Legal_Status();
+// new Datdongsan_Legal_Status();
