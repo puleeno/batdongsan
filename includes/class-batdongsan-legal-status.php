@@ -21,6 +21,8 @@ class Datdongsan_Legal_Status {
         );
         $args = array(
             'labels' => $labels,
+            'hierarchical' => true,
+            'public' => true,
         );
         register_taxonomy(static::LEGAL_NAME, PostTypes::get(), apply_filters(
             'batdongsan_legal_args',
