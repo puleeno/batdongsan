@@ -2,11 +2,13 @@
 use WordLand\PostTypes;
 
 class Datdongsan_Legal_Status {
+
 	const LEGAL_NAME = 'property_status';
 
 	public function __construct() {
 		add_action( 'init', array( $this, 'registerTaxonomies' ) );
-		add_filter( 'wordland_builder_get_property', array( $this, 'parseLegalData' ), 10, 2 );
+		add_filter( 'wordland_builder_get_property', array( $this, 'parseLegalData' ) );
+		add_filter( 'wordland_setup_same_location_property', array( $this, 'parseLegalData' ) );
 	}
 
 	public function registerTaxonomies() {
@@ -28,7 +30,7 @@ class Datdongsan_Legal_Status {
 		);
 	}
 
-	public function parseLegalData( $property, $builder ) {
+	public function parseLegalData( $property ) {
 		if ( ! $property->ID ) {
 			return $property;
 		}
@@ -36,6 +38,7 @@ class Datdongsan_Legal_Status {
 		$legals = wp_get_post_terms( $property->ID, static::LEGAL_NAME );
 		foreach ( $legals as $index => $legal ) {
 			$parsedLegal                = array(
+				'id'       => $legal->term_id,
 				'display'  => $legal->name,
 				'url'      => get_term_link( $legal, static::LEGAL_NAME ),
 				'show_url' => false,
