@@ -15,11 +15,10 @@ class Batdongsan_Options {
 			array( $this, 'callback_display_dropdown' ),
 			'writing',
 			'default',
-			[
+			array(
 				'label_for' => 'default_property_legal',
-			]
+			)
 		);
-
 	}
 
 	function callback_display_dropdown() {
