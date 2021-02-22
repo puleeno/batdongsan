@@ -23,6 +23,7 @@ class Batdongsan {
 
 	public function includes() {
 		require_once dirname( __FILE__ ) . '/class-batdongsan-legal-status.php';
+		require_once dirname( __FILE__ ) . '/class-batdongsan-front-and-road-acreages';
 		require_once dirname( __FILE__ ) . '/class-batdongsan-options.php';
 		require_once dirname( __FILE__ ) . '/class-batdongsan-install.php';
 	}
