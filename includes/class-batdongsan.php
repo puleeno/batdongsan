@@ -26,6 +26,9 @@ class Batdongsan {
 		require_once dirname( __FILE__ ) . '/class-batdongsan-front-and-road-acreages.php';
 		require_once dirname( __FILE__ ) . '/class-batdongsan-options.php';
 		require_once dirname( __FILE__ ) . '/class-batdongsan-install.php';
+
+		// Integrations
+		require_once dirname( __FILE__ ) . '/integrations/class-batdongsan-integration-spreadsheet-importer.php';
 	}
 
 	public function init_hooks() {
