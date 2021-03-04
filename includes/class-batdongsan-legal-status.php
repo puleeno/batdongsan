@@ -31,7 +31,7 @@ class Datdongsan_Legal_Status {
 	}
 
 	public function parseLegalData( $property ) {
-		if ( ! $property->ID ) {
+		if ( ! $property->ID || is_admin() ) {
 			return $property;
 		}
 
