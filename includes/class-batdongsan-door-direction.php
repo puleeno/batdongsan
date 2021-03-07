@@ -15,10 +15,12 @@ class Batdongsan_Front_Door_Direction {
 			'name' => __( 'Hướng nhà', 'batdongsan' ),
 		);
 		$args   = array(
-			'labels'       => $labels,
-			'hierarchical' => true,
-			'public'       => true,
+			'labels'            => $labels,
+			'hierarchical'      => true,
+			'public'            => true,
+			'show_admin_column' => true,
 		);
+
 		register_taxonomy(
 			static::DOOR_DIRECTION_TAX,
 			PostTypes::get(),
