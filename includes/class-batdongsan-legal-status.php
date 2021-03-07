@@ -36,6 +36,9 @@ class Datdongsan_Legal_Status {
 		}
 
 		$legals = wp_get_post_terms( $property->ID, static::LEGAL_NAME );
+		if (!isset($property->legals)) {
+			$property->legals = array();
+		}
 		foreach ( $legals as $index => $legal ) {
 			$parsedLegal                = array(
 				'id'       => $legal->term_id,
