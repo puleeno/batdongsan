@@ -37,6 +37,9 @@ class Batdongsan_Front_Door_Direction {
 		}
 
 		$directions = wp_get_post_terms( $property->ID, static::DOOR_DIRECTION_TAX );
+		if (!isset($property->directions)) {
+			$property->directions = array();
+		}
 		foreach ( $directions as $index => $direction ) {
 			$parsedDirections                = array(
 				'id'       => $direction->term_id,
