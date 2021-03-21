@@ -53,7 +53,7 @@ class Batdongsan_Front_Door_Direction {
 				$direction
 			);
 		}
-		if ( isset( $property->directions ) ) {
+		if ( ! empty( $property->directions ) ) {
 			$property->direction = $property->directions[0];
 		}
 		return $property;
