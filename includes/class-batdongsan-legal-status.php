@@ -52,7 +52,7 @@ class Datdongsan_Legal_Status {
 				$legal
 			);
 		}
-		if ( isset( $property->legals ) ) {
+		if ( ! empty( $property->legals ) ) {
 			$property->legal = $property->legals[0];
 		}
 		return $property;
