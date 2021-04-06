@@ -9,6 +9,8 @@ class Datdongsan_Legal_Status {
 		add_action( 'init', array( $this, 'registerTaxonomies' ) );
 		add_filter( 'wordland_builder_get_property', array( $this, 'parseLegalData' ) );
 		add_filter( 'wordland_setup_same_location_property', array( $this, 'parseLegalData' ) );
+		add_filter( 'wordland_reactjs_global_data', array( $this, 'append_legal_status_to_global' ) );
+		add_filter( 'wordland_ajax_build_query_args', array( $this, 'filterPropertyByLegalStatus' ), 10, 2 );
 	}
 
 	public function registerTaxonomies() {
@@ -36,7 +38,7 @@ class Datdongsan_Legal_Status {
 		}
 
 		$legals = wp_get_post_terms( $property->ID, static::LEGAL_NAME );
-		if (!isset($property->legals)) {
+		if ( ! isset( $property->legals ) ) {
 			$property->legals = array();
 		}
 		foreach ( $legals as $index => $legal ) {
@@ -56,6 +58,33 @@ class Datdongsan_Legal_Status {
 			$property->legal = $property->legals[0];
 		}
 		return $property;
+	}
+
+	public function append_legal_status_to_global( $global_data ) {
+		$args = array(
+			'taxonomy' => static::LEGAL_NAME,
+			'fields'   => 'id=>name',
+		);
+
+		$legal_status          = get_terms( $args );
+		$global_data['legals'] = $legal_status;
+
+		return $global_data;
+	}
+
+	public function filterPropertyByLegalStatus( $args, $request ) {
+		if ( isset( $request['legal_status'] ) && $request['legal_status'] > 0 ) {
+			if ( ! isset( $args['tax_query'] ) ) {
+				$args['tax_query'] = array();
+			}
+			$args['tax_query'][] = array(
+				'taxonomy' => static::LEGAL_NAME,
+				'terms'    => intval( $request['legal_status'] ),
+				'field'    => 'term_id',
+			);
+		}
+
+		return $args;
 	}
 }
 
