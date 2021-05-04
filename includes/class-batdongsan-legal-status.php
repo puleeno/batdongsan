@@ -3,7 +3,7 @@ use WordLand\PostTypes;
 
 class Datdongsan_Legal_Status {
 
-	const LEGAL_NAME = 'property_status';
+	const LEGAL_NAME = 'legal_status';
 
 	public function __construct() {
 		add_action( 'init', array( $this, 'registerTaxonomies' ) );
